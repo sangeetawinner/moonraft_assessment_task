@@ -1,0 +1,107 @@
+[
+  {
+    "id": "11",
+    "question": "What best describes your diet?",
+    "options": [
+      {
+        "id": "1",
+        "option_value": "Vegan"
+      },
+      {
+        "id": "2",
+        "option_value": "Vegetarian"
+      },
+      {
+        "id": "3",
+        "option_value": "Non-Vegetarian"
+      }
+    ],
+    "image": "https://cdn.pixabay.com/photo/2018/07/11/21/51/toast-3532016_1280.jpg",
+    "multiselect": false,
+    "type": "grid"
+  },
+  {
+    "id": "12",
+    "question": "What is your primary mode of transport?",
+    "options": [
+      {
+        "id": "1",
+        "option_value": "Bus"
+      },
+      {
+        "id": "2",
+        "option_value": "Car"
+      },
+      {
+        "id": "3",
+        "option_value": "Carpool/Taxi"
+      },
+      {
+        "id": "4",
+        "option_value": "Cycle"
+      },
+      {
+        "id": "5",
+        "option_value": "Motor Bike"
+      },
+      {
+        "id": "6",
+        "option_value": "Metro"
+      },
+      {
+        "id": "7",
+        "option_value": "Local Train"
+      }
+    ],
+    "image": "https://4bgowik9viu406fbr2hsu10z-wpengine.netdna-ssl.com/wp-content/uploads/2020/02/CTA-Orange-Circles.png",
+    "multiselect": true,
+    "type": "grid"
+  },
+  {
+    "id": "13",
+    "question": "What kind of house do you live in?",
+    "options": [
+      {
+        "id": "1",
+        "option_value": "Apartment"
+      },
+      {
+        "id": "2",
+        "option_value": "Independent House"
+      }
+    ],
+    "image": "",
+    "multiselect": false,
+    "type": "grid"
+  },
+  {
+    "id": "14",
+    "question": "Do you segregate your dry and wet waste?",
+    "options": [
+      {
+        "id": "1",
+        "option_value": "Yes"
+      },
+      {
+        "id": "2",
+        "option_value": "No"
+      }
+    ],
+    "image": "https://wallpaperaccess.com/full/2293057.jpg",
+    "multiselect": false,
+    "type": "grid"
+  },
+  {
+    "id": "15",
+    "question": "Where do you live?",
+    "options": [
+      {
+        "id": "1",
+        "option_value": "Search"
+      }
+    ],
+    "image": "",
+    "multiselect": false,
+    "type": "search"
+  }
+]

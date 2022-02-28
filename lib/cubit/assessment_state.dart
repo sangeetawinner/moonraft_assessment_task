@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'package:assessment/modal/assesment_modal.dart';
+import 'package:assessment/model/assesment_model.dart';
 
 class AssessmentState extends Equatable {
   final AssessmentItem assessmentItem;
@@ -26,17 +26,18 @@ class AssessmentState extends Equatable {
 class AssessmentItem {}
 
 class AnswerSelectSttate {
-  final List<AssessmentModal> selectedQuesttions;
+  final List<AssessmentModel> selectedQuestionAnswerSet;
 
-  AnswerSelectSttate({required this.selectedQuesttions});
+  AnswerSelectSttate({required this.selectedQuestionAnswerSet});
 
-  List<Object?> get props => [selectedQuesttions];
+  List<Object?> get props => [selectedQuestionAnswerSet];
 
   AnswerSelectSttate copyWith({
-    final List<AssessmentModal>? selectedQuesttions,
+    final List<AssessmentModel>? selectedQuestionAnswerSet,
   }) =>
       AnswerSelectSttate(
-        selectedQuesttions: selectedQuesttions ?? this.selectedQuesttions,
+        selectedQuestionAnswerSet:
+            selectedQuestionAnswerSet ?? this.selectedQuestionAnswerSet,
       );
 }
 
@@ -50,7 +51,7 @@ class LoadingState extends AssessmentItem {
 
 class LoadedState extends AssessmentItem {
   LoadedState(this.loadeddata);
-  List<AssessmentModal> loadeddata = [];
+  List<AssessmentModel> loadeddata = [];
   List<Object> get props => [loadeddata];
 }
 

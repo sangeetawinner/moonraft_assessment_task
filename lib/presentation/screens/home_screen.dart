@@ -1,6 +1,6 @@
+import 'package:assessment/presentation/container/asssessment_container.dart';
+import 'package:assessment/route/route.dart';
 import 'package:flutter/material.dart';
-
-import 'assessment_screen_start.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -35,11 +35,8 @@ class HomeScreen extends StatelessWidget {
               child: Text('Start Assessment'),
               color: Colors.orangeAccent,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const AssessmentScreenStart()),
-                );
+                Navigator.of(context)
+                    .pushNamed(RouteGenerator.asessmentContainer);
               },
             ),
           ),

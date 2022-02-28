@@ -1,5 +1,7 @@
-class AssessmentModal {
-  AssessmentModal({
+import 'package:assessment/model/option_model.dart';
+
+class AssessmentModel {
+  AssessmentModel({
     required this.id,
     required this.question,
     required this.options,
@@ -15,7 +17,7 @@ class AssessmentModal {
   final bool multiselect;
   final String type;
 
-  AssessmentModal copyWith({
+  AssessmentModel copyWith({
     String? id,
     String? question,
     List<Option>? options,
@@ -23,7 +25,7 @@ class AssessmentModal {
     bool? multiselect,
     String? type,
   }) =>
-      AssessmentModal(
+      AssessmentModel(
         id: id ?? this.id,
         question: question ?? this.question,
         options: options ?? this.options,
@@ -31,8 +33,8 @@ class AssessmentModal {
         multiselect: multiselect ?? this.multiselect,
         type: type ?? this.type,
       );
-  factory AssessmentModal.fromJson(Map<String?, dynamic> json) =>
-      AssessmentModal(
+  factory AssessmentModel.fromJson(Map<String?, dynamic> json) =>
+      AssessmentModel(
         id: json["id"],
         question: json["question"],
         options:
@@ -41,31 +43,4 @@ class AssessmentModal {
         multiselect: json["multiselect"],
         type: json["type"],
       );
-}
-
-class Option {
-  Option({
-    required this.id,
-    required this.optionValue,
-  });
-
-  final String id;
-  final String optionValue;
-  Option copyWith({
-    String? id,
-    String? optionValue,
-  }) =>
-      Option(
-        id: id ?? this.id,
-        optionValue: optionValue ?? this.optionValue,
-      );
-  factory Option.fromJson(Map<String, dynamic> json) => Option(
-        id: json["id"],
-        optionValue: json["option_value"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "option_value": optionValue,
-      };
 }

@@ -1,20 +1,20 @@
-import 'package:assessment/modal/assesment_modal.dart';
+import 'package:assessment/model/assesment_model.dart';
+import 'package:assessment/model/option_model.dart';
 
 import 'package:flutter/material.dart';
 
 class SearchWidget extends StatelessWidget {
-  final AssessmentModal currentQuestionAnswerSet;
+  final AssessmentModel currentQuestionAnswerSet;
   int currentIndex;
-  final List<Option> options;
-  List<AssessmentModal>? selectedQuesttions;
+
+  List<AssessmentModel>? selectedQuestionAnswerSet;
   final Function addAnswer;
   SearchWidget({
     Key? key,
     required this.currentQuestionAnswerSet,
     required this.currentIndex,
-    required this.options,
     required this.addAnswer,
-    this.selectedQuesttions,
+    this.selectedQuestionAnswerSet,
   }) : super(key: key);
 
   final myController = TextEditingController();
@@ -58,17 +58,17 @@ class SearchWidget extends StatelessWidget {
                 splashColor: Colors.purple,
                 onPressed: () {
                   addAnswer(
-                      currentQuestionAnswerSet.question,
-                      Option(id: '1', optionValue: myController.text),
-                      currentIndex,
-                      currentQuestionAnswerSet.multiselect);
+                    currentQuestionAnswerSet,
+                    Option(id: '1', optionValue: myController.text),
+                    currentIndex,
+                  );
                 },
               ),
             ],
           ),
         ),
-        Text(selectedQuesttions!.length > currentIndex
-            ? selectedQuesttions![currentIndex].options[0].optionValue
+        Text(selectedQuestionAnswerSet!.length > currentIndex
+            ? selectedQuestionAnswerSet![currentIndex].options[0].optionValue
             : ''),
       ],
     );

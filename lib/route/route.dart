@@ -1,23 +1,27 @@
+import 'package:assessment/presentation/widgets/assessment_result.dart';
 import 'package:flutter/material.dart';
 
 import 'package:assessment/presentation/container/asssessment_container.dart';
 import 'package:assessment/presentation/screens/home_screen.dart';
 
 // Route Names
-const String homecontainer = 'homecontainer';
-const String homeScreen = 'homescreen';
-const String settingsPage = 'settings';
 
 // Control our page route flow
-Route<dynamic> controller(RouteSettings settings) {
-  switch (settings.name) {
-    case homecontainer:
-      return MaterialPageRoute(builder: (context) => AssessmentContainer());
-    case homeScreen:
-      return MaterialPageRoute(builder: (context) => HomeScreen());
-    case settingsPage:
-    //  return MaterialPageRoute(builder: (context) => SettingsPage());
-    default:
-      throw ('This route name does not exit');
+
+class RouteGenerator {
+  RouteGenerator._();
+  static const String asessmentContainer = 'asessmentContainer';
+
+  static const String homeScreen = 'homescreen';
+  static const String assessmentResult = 'assessmentResult';
+
+  static Map<String, WidgetBuilder> get buildRoutes {
+    return {
+      asessmentContainer: (BuildContext context) => AssessmentContainer(),
+      homeScreen: (BuildContext context) => HomeScreen(),
+      assessmentResult: (BuildContext context) => AssessmentResult()
+    };
   }
+
+  static String get initialRoute => RouteGenerator.homeScreen;
 }

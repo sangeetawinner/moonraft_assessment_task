@@ -1,10 +1,11 @@
+import 'package:assessment/model/option_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:assessment/cubit/assessment_cubit.dart';
 import 'package:assessment/cubit/assessment_state.dart';
-import 'package:assessment/modal/assesment_modal.dart';
+import 'package:assessment/model/assesment_model.dart';
 import 'package:assessment/presentation/widgets/page_body_widget.dart';
 
 class AssessmentContainer extends StatelessWidget {
@@ -14,9 +15,9 @@ class AssessmentContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     AssessmentCubit _cubit;
 
-    void addAnswer(question, Option option, index, multiselect) {
+    void addAnswer(AssessmentModel question, Option option, index) {
       BlocProvider.of<AssessmentCubit>(context)
-          .addAnswer(question, option, index, multiselect);
+          .addAnswer(question, option, index);
     }
 
     return Scaffold(
@@ -28,7 +29,7 @@ class AssessmentContainer extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state.assessmentItem is LoadedState) {
-            List<AssessmentModal> questions =
+            List<AssessmentModel> questions =
                 (state.assessmentItem as LoadedState).loadeddata;
             int currentPageIndex = 0;
             return PageView.builder(
@@ -38,8 +39,8 @@ class AssessmentContainer extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 return PageBodyWidget(
-                  selectedQuesttions:
-                      state.answerSelectSttate.selectedQuesttions,
+                  selectedQuestionAnswerSet:
+                      state.answerSelectSttate.selectedQuestionAnswerSet,
                   currentQuestionAnswerSet: questions[index],
                   currentIndex: index,
                   length: questions.length.toString(),

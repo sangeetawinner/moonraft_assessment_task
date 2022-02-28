@@ -1,9 +1,10 @@
 import 'dart:developer';
 
+import 'package:assessment/model/assesment_model.dart';
+import 'package:assessment/model/option_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:assessment/cubit/assessment_state.dart';
-import 'package:assessment/modal/assesment_modal.dart';
 import 'package:assessment/repository/assessment_repository.dart';
 
 class AssessmentCubit extends Cubit<AssessmentState> {
@@ -11,7 +12,7 @@ class AssessmentCubit extends Cubit<AssessmentState> {
       : super(AssessmentState(
           assessmentItem: InitialState(),
           answerSelectSttate: AnswerSelectSttate(
-            selectedQuesttions: [],
+            selectedQuestionAnswerSet: [],
           ),
         )) {
     getData();
@@ -23,7 +24,7 @@ class AssessmentCubit extends Cubit<AssessmentState> {
   Future<void> getData() async {
     try {
       emit(state.copyWith(assessmentItem: LoadingState()));
-      final List<AssessmentModal> item = await assessmentRepository.readJson();
+      final List<AssessmentModel> item = await assessmentRepository.readJson();
       emit(state.copyWith(assessmentItem: LoadedState(item)));
     } catch (e) {
       emit(state.copyWith(
@@ -35,27 +36,33 @@ class AssessmentCubit extends Cubit<AssessmentState> {
   ///this  function will take question String Option in dattamodal format, currentquestionindex and type whether question is multiselect or not
   ///first this function will check whether current question already selectted or not if selected then we will  update currentquestion with their updated options
   ///in option  update first we will check the type of question if multiselect then  we will add more option  if tthat is not in the current option list.
-  void addAnswer(question, Option option, int questionIndex, multiselect) {
-    final List<AssessmentModal> selectedQuesttions = [
-      ...state.answerSelectSttate.selectedQuesttions
+  void addAnswer(
+      AssessmentModel currentQuestion, Option option, int questionIndex) {
+    final List<AssessmentModel> selectedQuesttions = [
+      ...state.answerSelectSttate.selectedQuestionAnswerSet
     ];
+
+    List<String> items = [];
+
+    items.addAll(selectedQuesttions.map((e) => e.question));
+    inspect(items);
     if (selectedQuesttions.length == questionIndex &&
-        !selectedQuesttions.contains(question)) {
+        !items.contains(currentQuestion.question)) {
       List<Option> optiondata = [];
       optiondata.add(option);
-      AssessmentModal newitem = AssessmentModal(
-          id: '',
-          question: question,
+      AssessmentModel newitem = AssessmentModel(
+          id: currentQuestion.id,
+          question: currentQuestion.question,
           options: optiondata,
-          image: '',
-          multiselect: multiselect,
+          image: currentQuestion.image,
+          multiselect: currentQuestion.multiselect,
           type: '');
       selectedQuesttions.add(newitem);
       inspect(selectedQuesttions);
 
       emit(state.copyWith(
         answerSelectSttate: state.answerSelectSttate
-            .copyWith(selectedQuesttions: selectedQuesttions),
+            .copyWith(selectedQuestionAnswerSet: selectedQuesttions),
       ));
     } else {
       List<Option> optiondata = selectedQuesttions[questionIndex].options;
@@ -70,7 +77,7 @@ class AssessmentCubit extends Cubit<AssessmentState> {
         optiondata.add(option);
       }
 
-      AssessmentModal updatedcount =
+      AssessmentModel updatedcount =
           selectedQuesttions[questionIndex].copyWith(options: optiondata);
       selectedQuesttions[questionIndex] = updatedcount;
 
@@ -79,7 +86,7 @@ class AssessmentCubit extends Cubit<AssessmentState> {
     emit(
       state.copyWith(
         answerSelectSttate: state.answerSelectSttate
-            .copyWith(selectedQuesttions: selectedQuesttions),
+            .copyWith(selectedQuestionAnswerSet: selectedQuesttions),
       ),
     );
   }

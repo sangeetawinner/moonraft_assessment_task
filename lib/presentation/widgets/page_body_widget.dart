@@ -1,13 +1,14 @@
+import 'package:assessment/route/route.dart';
 import 'package:flutter/material.dart';
 
-import 'package:assessment/modal/assesment_modal.dart';
+import 'package:assessment/model/assesment_model.dart';
 import 'package:assessment/presentation/widgets/assessment_result.dart';
 import 'package:assessment/presentation/widgets/search_widget.dart';
 import 'grid_answer_widget.dart';
 
 class PageBodyWidget extends StatelessWidget {
-  final AssessmentModal currentQuestionAnswerSet;
-  final List<AssessmentModal> selectedQuesttions;
+  final AssessmentModel currentQuestionAnswerSet;
+  final List<AssessmentModel> selectedQuestionAnswerSet;
   final String length;
   final int currentIndex;
   final PageController pageController;
@@ -19,7 +20,7 @@ class PageBodyWidget extends StatelessWidget {
       required this.currentIndex,
       required this.pageController,
       required this.addAnswer,
-      required this.selectedQuesttions})
+      required this.selectedQuestionAnswerSet})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -80,49 +81,41 @@ class PageBodyWidget extends StatelessWidget {
           ),
           currentQuestionAnswerSet.type == answerType.grid.name
               ? GridAnswerWidget(
-                  options: currentQuestionAnswerSet.options,
                   currentQuestionAnswerSet: currentQuestionAnswerSet,
                   currentIndex: currentIndex,
                   addAnswer: addAnswer,
-                  selectedQuesttions: selectedQuesttions,
+                  selectedQuestionAnswerSet: selectedQuestionAnswerSet,
                 )
               : SearchWidget(
-                  options: currentQuestionAnswerSet.options,
                   currentQuestionAnswerSet: currentQuestionAnswerSet,
                   currentIndex: currentIndex,
                   addAnswer: addAnswer,
-                  selectedQuesttions: selectedQuesttions,
+                  selectedQuestionAnswerSet: selectedQuestionAnswerSet,
                 ),
           Align(
             alignment: Alignment.bottomRight,
             child: OutlinedButton(
               onPressed: () {
-                selectedQuesttions.length > currentIndex
-                    ? (selectedQuesttions[currentIndex].options.isNotEmpty &&
+                selectedQuestionAnswerSet.length > currentIndex
+                    ? (selectedQuestionAnswerSet[currentIndex]
+                                .options
+                                .isNotEmpty &&
                             currentIndex != 4
                         ? pageController.nextPage(
                             duration: Duration(milliseconds: 1000),
                             curve: Curves.easeIn)
-                        : Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AssessmentResult(
-                                    selectedQuesttions: selectedQuesttions)),
-                          ))
+                        : Navigator.of(context)
+                            .pushNamed(RouteGenerator.assessmentResult))
                     : currentIndex == 4
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AssessmentResult(
-                                    selectedQuesttions: selectedQuesttions)),
-                          )
+                        ? Navigator.of(context)
+                            .pushNamed(RouteGenerator.assessmentResult)
                         : pageController.nextPage(
                             duration: Duration(milliseconds: 1000),
                             curve: Curves.easeIn);
               },
               style: ButtonStyle(
-                backgroundColor: selectedQuesttions.length > currentIndex
-                    ? selectedQuesttions[currentIndex].options.isNotEmpty
+                backgroundColor: selectedQuestionAnswerSet.length > currentIndex
+                    ? selectedQuestionAnswerSet[currentIndex].options.isNotEmpty
                         ? MaterialStateProperty.all(Colors.lightGreen)
                         : MaterialStateProperty.all(Colors.white)
                     : MaterialStateProperty.all(Colors.white),
@@ -131,8 +124,10 @@ class PageBodyWidget extends StatelessWidget {
                 )),
               ),
               child: Text(
-                selectedQuesttions.length > currentIndex
-                    ? (selectedQuesttions[currentIndex].options.isNotEmpty &&
+                selectedQuestionAnswerSet.length > currentIndex
+                    ? (selectedQuestionAnswerSet[currentIndex]
+                                .options
+                                .isNotEmpty &&
                             currentIndex != 4
                         ? "Next Page"
                         : "Continue")
@@ -140,8 +135,10 @@ class PageBodyWidget extends StatelessWidget {
                         ? "Skip and Finish"
                         : "Next Page",
                 style: TextStyle(
-                  color: selectedQuesttions.length > currentIndex
-                      ? selectedQuesttions[currentIndex].options.isNotEmpty
+                  color: selectedQuestionAnswerSet.length > currentIndex
+                      ? selectedQuestionAnswerSet[currentIndex]
+                              .options
+                              .isNotEmpty
                           ? Colors.white
                           : Colors.grey
                       : Colors.grey,

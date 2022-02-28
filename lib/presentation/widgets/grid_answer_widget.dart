@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
-import 'package:assessment/modal/assesment_modal.dart';
+import 'package:assessment/model/assesment_model.dart';
 
 class GridAnswerWidget extends StatelessWidget {
-  final AssessmentModal currentQuestionAnswerSet;
+  final AssessmentModel currentQuestionAnswerSet;
   int currentIndex;
-  final List<Option> options;
-  List<AssessmentModal>? selectedQuesttions;
+
+  List<AssessmentModel>? selectedQuestionAnswerSet;
   final Function addAnswer;
   GridAnswerWidget({
     Key? key,
     required this.currentQuestionAnswerSet,
     required this.currentIndex,
-    required this.options,
+    this.selectedQuestionAnswerSet,
     required this.addAnswer,
-    this.selectedQuesttions,
   }) : super(key: key);
 
   @override
@@ -27,16 +26,16 @@ class GridAnswerWidget extends StatelessWidget {
       crossAxisSpacing: 6.0,
       scrollDirection: Axis.vertical,
       children: List.generate(
-        options.length,
+        currentQuestionAnswerSet.options.length,
         (index) {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
-                color: selectedQuesttions!.length > currentIndex
-                    ? selectedQuesttions![currentIndex]
+                color: selectedQuestionAnswerSet!.length > currentIndex
+                    ? selectedQuestionAnswerSet![currentIndex]
                             .options
-                            .contains(options[index])
+                            .contains(currentQuestionAnswerSet.options[index])
                         ? Colors.green
                         : Colors.white
                     : Colors.white,
@@ -48,14 +47,14 @@ class GridAnswerWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(options[index].optionValue,
+                      Text(currentQuestionAnswerSet.options[index].optionValue,
                           style: const TextStyle(
                               fontSize: 14.0, fontWeight: FontWeight.normal)),
                     ],
                   ),
                   onTap: () {
-                    addAnswer(currentQuestionAnswerSet.question, options[index],
-                        currentIndex, currentQuestionAnswerSet.multiselect);
+                    addAnswer(currentQuestionAnswerSet,
+                        currentQuestionAnswerSet.options[index], currentIndex);
                   },
                 ),
               ),

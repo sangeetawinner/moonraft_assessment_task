@@ -14,7 +14,6 @@ class AssessmentResult extends StatelessWidget {
         return Card(
           child: ListTile(
             title: Text(selectedAnswerSet[index].question),
-            // title: Text("This is title"),
             subtitle: ListView.builder(
               itemBuilder: (BuildContext context, optionindex) {
                 return Card(
@@ -22,8 +21,6 @@ class AssessmentResult extends StatelessWidget {
                     subtitle: Text(selectedAnswerSet[index]
                         .options[optionindex]
                         .optionValue),
-                    // title: Text("This is title"),
-                    // subtitle: Text("This is subtitle"),
                   ),
                 );
               },

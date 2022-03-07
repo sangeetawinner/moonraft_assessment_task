@@ -35,8 +35,7 @@ class HomeScreen extends StatelessWidget {
               child: Text('Start Assessment'),
               color: Colors.orangeAccent,
               onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(RouteGenerator.asessmentContainer);
+                Navigator.of(context).pushNamed(RouteGenerator.asessmentScreen);
               },
             ),
           ),

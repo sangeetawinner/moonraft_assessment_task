@@ -19,10 +19,12 @@ class AssesmentResultContainer extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.orange,
-            title: const Text("Assessment Result"),
+            title: const Text('Assessment Result'),
             automaticallyImplyLeading: false,
           ),
-          body: AssessmentResult(selectedAnswerSet: selectedAnswerSet),
+          body: AssessmentResult(
+            selectedAnswerSet: selectedAnswerSet,
+          ),
         );
       },
     );

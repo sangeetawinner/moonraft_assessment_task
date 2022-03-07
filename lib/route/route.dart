@@ -1,6 +1,6 @@
-import 'package:assessment/presentation/widgets/assessment_result.dart';
 import 'package:flutter/material.dart';
 
+import 'package:assessment/presentation/screens/assessment_result_screen.dart';
 import 'package:assessment/presentation/container/asssessment_container.dart';
 import 'package:assessment/presentation/screens/home_screen.dart';
 
@@ -19,7 +19,7 @@ class RouteGenerator {
     return {
       asessmentContainer: (BuildContext context) => AssessmentContainer(),
       homeScreen: (BuildContext context) => HomeScreen(),
-      assessmentResult: (BuildContext context) => AssessmentResult()
+      assessmentResult: (BuildContext context) => const AssessmentResultScreen()
     };
   }
 

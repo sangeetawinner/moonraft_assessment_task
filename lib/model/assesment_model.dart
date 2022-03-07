@@ -1,46 +1,20 @@
 import 'package:assessment/model/option_model.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'assesment_model.freezed.dart';
+part 'assesment_model.g.dart';
 
-class AssessmentModel {
-  AssessmentModel({
-    required this.id,
-    required this.question,
-    required this.options,
-    required this.multiselect,
-    required this.type,
-    required this.image,
-  });
+@freezed
+class AssessmentModel with _$AssessmentModel {
+  const AssessmentModel._();
+  const factory AssessmentModel({
+    required String id,
+    required String question,
+    required List<Option> options,
+    required String image,
+    required bool multiselect,
+    required String type,
+  }) = _AssessmentModel;
 
-  final String id;
-  final String question;
-  final List<Option> options;
-  final String image;
-  final bool multiselect;
-  final String type;
-
-  AssessmentModel copyWith({
-    String? id,
-    String? question,
-    List<Option>? options,
-    String? image,
-    bool? multiselect,
-    String? type,
-  }) =>
-      AssessmentModel(
-        id: id ?? this.id,
-        question: question ?? this.question,
-        options: options ?? this.options,
-        image: image ?? this.image,
-        multiselect: multiselect ?? this.multiselect,
-        type: type ?? this.type,
-      );
-  factory AssessmentModel.fromJson(Map<String?, dynamic> json) =>
-      AssessmentModel(
-        id: json["id"],
-        question: json["question"],
-        options:
-            List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
-        image: json["image"],
-        multiselect: json["multiselect"],
-        type: json["type"],
-      );
+  factory AssessmentModel.fromJson(Map<String, dynamic> json) =>
+      _$AssessmentModelFromJson(json);
 }

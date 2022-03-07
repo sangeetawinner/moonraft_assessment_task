@@ -1,6 +1,7 @@
-import 'package:equatable/equatable.dart';
-
 import 'package:assessment/model/assesment_model.dart';
+import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'assessment_state.freezed.dart';
 
 class AssessmentState extends Equatable {
   final AssessmentItem assessmentItem;
@@ -23,7 +24,16 @@ class AssessmentState extends Equatable {
       );
 }
 
-class AssessmentItem {}
+@freezed
+class AssessmentItem with _$AssessmentItem {
+  const factory AssessmentItem.initial() = _InitialState;
+  const factory AssessmentItem.loadingState() = _LoadingState;
+  const factory AssessmentItem.loadedState({
+    required List<AssessmentModel> loadeddata,
+  }) = _LoadedState;
+
+  const factory AssessmentItem.errorState() = _ErrorState;
+}
 
 class AnswerSelectSttate {
   final List<AssessmentModel> selectedQuestionAnswerSet;
@@ -39,22 +49,4 @@ class AnswerSelectSttate {
         selectedQuestionAnswerSet:
             selectedQuestionAnswerSet ?? this.selectedQuestionAnswerSet,
       );
-}
-
-class InitialState extends AssessmentItem {
-  List<Object> get props => [];
-}
-
-class LoadingState extends AssessmentItem {
-  List<Object> get props => [];
-}
-
-class LoadedState extends AssessmentItem {
-  LoadedState(this.loadeddata);
-  List<AssessmentModel> loadeddata = [];
-  List<Object> get props => [loadeddata];
-}
-
-class ErrorState extends AssessmentItem {
-  List<Object> get props => [];
 }

@@ -10,7 +10,7 @@ import 'package:assessment/repository/assessment_repository.dart';
 class AssessmentCubit extends Cubit<AssessmentState> {
   AssessmentCubit({required this.assessmentRepository})
       : super(AssessmentState(
-          assessmentItem: InitialState(),
+          assessmentItem: AssessmentItem.initial(),
           answerSelectSttate: AnswerSelectSttate(
             selectedQuestionAnswerSet: [],
           ),
@@ -23,12 +23,13 @@ class AssessmentCubit extends Cubit<AssessmentState> {
   //this function will load data from json file and initialize to data modal
   Future<void> getData() async {
     try {
-      emit(state.copyWith(assessmentItem: LoadingState()));
+      emit(state.copyWith(assessmentItem: AssessmentItem.loadingState()));
       final List<AssessmentModel> item = await assessmentRepository.readJson();
-      emit(state.copyWith(assessmentItem: LoadedState(item)));
+      emit(state.copyWith(
+          assessmentItem: AssessmentItem.loadedState(loadeddata: item)));
     } catch (e) {
       emit(state.copyWith(
-        assessmentItem: ErrorState(),
+        assessmentItem: AssessmentItem.errorState(),
       ));
     }
   }

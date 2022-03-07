@@ -1,26 +1,16 @@
-class Option {
-  Option({
-    required this.id,
-    required this.optionValue,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'option_model.freezed.dart';
+part 'option_model.g.dart';
 
-  final String id;
-  final String optionValue;
-  Option copyWith({
-    String? id,
-    String? optionValue,
-  }) =>
-      Option(
-        id: id ?? this.id,
-        optionValue: optionValue ?? this.optionValue,
-      );
-  factory Option.fromJson(Map<String, dynamic> json) => Option(
-        id: json["id"],
-        optionValue: json["option_value"],
-      );
+@freezed
+class Option with _$Option {
+  const Option._();
+  const factory Option({
+    required String id,
+    required String optionValue,
+    //@JsonKey('option_value')  String optionValue,
+    // @Default('')  String optionValue,
+  }) = _Option;
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "option_value": optionValue,
-      };
+  factory Option.fromJson(Map<String, dynamic> json) => _$OptionFromJson(json);
 }
